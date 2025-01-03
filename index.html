@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenImageMirror</title>
+    <link href="assets/css2.css" rel="stylesheet">
+    <link href="assets/icon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+    <audio id="notification-sound" src="assets/notification.mp3" preload="auto"></audio>
+</head>
+<body>
+    <div id="loading-overlay">
+        <img src="assets/45.gif" alt="Loading...">
+    </div>
+    <h1>OpenImageMirror</h1>
+    <div id="total-info">
+        <span id="total-size">Total Size: 0 B</span>
+        <span id="total-count">Total Images: 0</span>
+    </div>
+    <div id="download-progress">
+        <progress id="progress-bar" value="0" max="100"></progress>
+        <span id="progress-text">0%</span>
+    </div>
+    <div id="notification-card" class="notification-card">
+        <p>Only one download can be made at a time.</p>
+        <button id="notification-ok-button">OK</button>
+    </div>
+    <input type="text" id="search-bar" placeholder="Search files and folders..." style="margin-left: 20px; margin-bottom: 20px; padding: 10px; width: calc(100% - 40px); border: 1px solid var(--primary-color); border-radius: 6px; background-color: var(--surface-color); color: var(--text-primary);">
+    <button id="toggle-all" class="toggle-button">
+        <i class="material-icons">unfold_less</i> Collapse All
+    </button>
+    <ul id="tree"></ul>
+    <script src="renderer.js"></script>
+</body>
+</html>

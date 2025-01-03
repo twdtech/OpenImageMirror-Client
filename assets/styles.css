@@ -1,0 +1,294 @@
+:root {
+    /* Dark Mode Purple Palette */
+    --bg-color: #121212;
+    --surface-color: #1E1E1E;
+    --primary-color: #8A4FFF;
+    --secondary-color: #BB86FC;
+    --text-primary: #E0E0E0;
+    --text-secondary: #BBBBBB;
+    --accent-color: #03DAC6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--surface-color);
+}
+
+/* Custom Scrollbar */
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+h1 {
+    text-align: left;
+    color: var(--secondary-color);
+    font-weight: 300;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(138, 79, 255, 0.3);
+}
+
+#tree {
+    list-style-type: none;
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    padding: 20px;
+    border: 1px solid rgba(138, 79, 255, 0.1);
+    margin-left: 20px; /* Optional: Add some left margin for spacing */
+}
+
+#tree ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#tree > ul {
+    margin-left: 0;
+}
+
+#tree ul ul {
+    margin-left: 20px;
+}
+
+#tree li {
+    position: relative;
+    align-items: center;  /* Vertically center items */
+    padding-left: 25px;
+    margin-bottom: 8px;
+    transition: background-color 0.2s ease;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#tree li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25px;  /* Start from the icon's position */
+    right: 10px;  /* End near the download button */
+    height: 1px;
+    background-color: rgba(138, 79, 255, 0.2);  /* Subtle purple line */
+    opacity: 0.5;
+}
+
+#tree li .material-icons {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 20px;
+    color: var(--secondary-color);
+    margin-right: 10px;
+}
+
+#tree li span {
+    color: var(--text-primary);
+}
+
+.material-icons {
+    vertical-align: middle; /* Align icons with text */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+/* Additional Modern Touches */
+li.file .material-icons {
+    color: var(--accent-color);
+}
+
+li.text-file .material-icons {
+    color: var(--primary-color);
+}
+
+/* Add this to your existing CSS */
+.toggle-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.toggle-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.toggle-button .material-icons {
+    font-size: 18px;
+}
+
+.download-button {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin-left: auto;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 10px);  /* Move up by half the icon size */
+    transform: translateY(-50%);
+}
+
+.download-button:hover {
+    color: var(--accent-color); /* Change color on hover */
+}
+
+.download-button .material-icons {
+    font-size: 20px;  /* Ensure consistent icon size */
+}
+
+#search-bar {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: calc(100% - 40px);
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+#search-bar:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+#total-info {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+#total-info span {
+    margin-right: 20px;
+}
+
+#download-progress {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#progress-bar {
+    width: 200px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: var(--surface-color);
+}
+
+#progress-bar::-webkit-progress-bar {
+    background-color: var(--surface-color);
+    border-radius: 5px;
+}
+
+#progress-bar::-webkit-progress-value {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+#progress-text {
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.notification-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+    display: none; /* Hidden by default */
+}
+
+.notification-card p {
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+#notification-ok-button {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+}
+
+#notification-ok-button:hover {
+    background-color: var(--secondary-color);
+}
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(40, 40, 40, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#loading-overlay img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+@media (max-width: 600px) {
+    #tree {
+        padding: 10px;
+    }
+
+    #tree li {
+        padding-left: 15px;
+    }
+}
