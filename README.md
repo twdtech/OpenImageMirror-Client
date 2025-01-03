@@ -59,7 +59,7 @@ Show system notifications
 BSD 3 Clause
 
 ## Screenshots
-![OpenImageMirror Client Screenshot](https://raw.githubusercontent.com/twdtech/twdtech/refs/heads/main/imgs/oimc.png)
+![OpenImageMirror Client Screenshot](https://raw.githubusercontent.com/twdtech/twdtech/refs/heads/main/imgs/oimc_v01.png)
 
 <br>
 Note: This is an early version of the application. Feedback and contributions are welcome! 🌟
