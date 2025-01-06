@@ -202,66 +202,76 @@ function initializeNotificationSound() {
 
 async function downloadSingleFile(fileDetails) {
     try {
+        if (isDownloading) {
+            showNotificationCard();
+            return;
+        }
+
+        isDownloading = true;
+
+        updateProgress(0);
+
         const sanitizedPath = fileDetails.path.replace(/^\/MIRROR\//, '');
-        const downloadUrl = `http://localhost:8080/download/${encodeURIComponent(sanitizedPath)}`;
+        const encodedPath = encodeURIComponent(sanitizedPath).replace(/%2F/g, '/');
+        const downloadUrl = `http://localhost:8080/download/${encodedPath}`;
 
-        const response = await fetch(downloadUrl);
-        if (!response.ok) {
-            throw new Error(`Failed to download file: ${response.statusText}`);
+        console.log('Attempting to download:', downloadUrl);
+
+        const saveDialogResult = await window.electron.showSaveDialog({
+            defaultPath: fileDetails.name || sanitizedPath.split('/').pop(),
+            properties: ['createDirectory']
+        });
+
+        if (!saveDialogResult.filePath) {
+            isDownloading = false;
+            return;
         }
 
-        const contentLength = +response.headers.get('Content-Length');
-        let receivedLength = 0;
-
-        const reader = response.body.getReader();
-        const chunks = [];
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            chunks.push(value);
-            receivedLength += value.length;
-
-            const progress = (receivedLength / contentLength) * 100;
+        window.electron.onDownloadProgress((progress) => {
             updateProgress(progress);
+        });
+
+        const downloadResult = await window.electron.downloadFile({
+            url: downloadUrl,
+            filePath: saveDialogResult.filePath
+        });
+
+        window.electron.removeDownloadProgressListener();
+
+        if (!downloadResult.success) {
+            throw new Error(downloadResult.error);
         }
 
-        const blob = new Blob(chunks);
-
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-
-        const filename = fileDetails.name || fileDetails.path.split('/').pop();
-        link.setAttribute('download', filename);
-
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-
-        window.URL.revokeObjectURL(url);
+        updateProgress(100);
 
         if (notificationSound) {
             try {
                 notificationSound.currentTime = 0;
                 await notificationSound.play();
             } catch (soundError) {
-                console.error('Error playing notification sound:', soundError);
+                console.error('Notification sound error:', soundError);
             }
         }
 
         window.electron.showNotification({
             title: 'Download Complete',
-            body: `File saved: ${filename}`
+            body: `Successfully downloaded: ${fileDetails.name}`
         });
 
     } catch (error) {
         console.error('Download error:', error);
+        
+        window.electron.removeDownloadProgressListener();
+
+        isDownloading = false;
+        updateProgress(0);
+
         window.electron.showNotification({
             title: 'Download Failed',
-            body: error.message
+            body: error.message || 'Unknown download error'
         });
+    } finally {
+        isDownloading = false;
     }
 }
 

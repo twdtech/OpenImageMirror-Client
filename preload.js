@@ -2,16 +2,19 @@ const { contextBridge, ipcRenderer } = require('electron');
 const path = require('path');
 
 contextBridge.exposeInMainWorld('electron', {
-    writeFile: async (filePath, data) => {
-        try {
-            return await ipcRenderer.invoke('write-file', { filePath, data: Array.from(data) });
-        } catch (error) {
-            console.error('File write error:', error);
-            return false;
-        }
+    downloadFile: (downloadOptions) => {
+        return ipcRenderer.invoke('download-file', downloadOptions);
     },
-    openDirectory: () => {
-        return ipcRenderer.invoke('open-directory');
+    showSaveDialog: (options) => {
+        return ipcRenderer.invoke('show-save-dialog', options);
+    },
+    onDownloadProgress: (callback) => {
+        ipcRenderer.on('download-progress', (event, progress) => {
+            callback(progress);
+        });
+    },
+    removeDownloadProgressListener: () => {
+        ipcRenderer.removeAllListeners('download-progress');
     },
     showNotification: (options) => {
         ipcRenderer.send('show-notification', options);
