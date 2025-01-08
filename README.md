@@ -19,7 +19,7 @@ OpenImageMirror is a desktop application for browsing and downloading image and 
 
 ## Installation 🚀
 ```bash
-git clone https://github.com/yourusername/OpenImageMirror-Client.git
+git clone https://github.com/twdtech/OpenImageMirror-Client.git
 cd OpenImageMirror-Client
 npm install
 npm run build/start
