@@ -27,9 +27,10 @@ npm run build/start
 
 ## Configuration ⚙️
 ### Server URL
-Modify the apiUrl in renderer.js to point to your mirror server:
+Modify the apiUrl and downloadUrl in renderer.js to point to your mirror server:
 ```js
 const apiUrl = 'http://localhost:8080/api/mirror';
+const downloadUrl = 'http://localhost:8080/download/';
 ```
 
 ## Root Folder Name
@@ -52,9 +53,9 @@ const rootName = 'Root /';
 
 ## Permissions 🔒
 ### Requires permission to:
-Access local file system
-Make network requests
-Show system notifications
+- Access local file system
+- Make network requests
+- Show system notifications
 
 ## License 📄 <br>
 BSD 3 Clause
