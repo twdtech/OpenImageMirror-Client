@@ -1,5 +1,7 @@
-const apiUrl = 'http://localhost:8080/api/mirror';
+const url = 'http://localhost:8080';
 const rootName = 'Root /';
+const apiUrl = url + '/api/mirror';
+
 let originalTreeData = null;
 let isDownloading = false;
 let notificationSound = null;
@@ -213,7 +215,7 @@ async function downloadSingleFile(fileDetails) {
 
         const sanitizedPath = fileDetails.path.replace(/^\/MIRROR\//, '');
         const encodedPath = encodeURIComponent(sanitizedPath).replace(/%2F/g, '/');
-        const downloadUrl = `http://localhost:8080/download/${encodedPath}`;
+        const downloadUrl = url + `/download/${encodedPath}`;
 
         console.log('Attempting to download:', downloadUrl);
 
